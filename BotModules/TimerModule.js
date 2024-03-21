@@ -1,5 +1,4 @@
 const { TimerModel } = require("../Mongoose/Models.js");
-const { expireMessage, expireEvent, expireThread } = require("./ExpiryModule.js");
 const { LogError } = require("./LoggingModule");
 
 
@@ -40,5 +39,16 @@ module.exports = {
         });
 
         return;
+    },
+
+
+
+    /**
+     * Calculates the UNIX timestamp for Star Cooldowns
+     */
+    calculateStarCooldown()
+    {
+        const now = Date.now();
+        return now + 2.592e+8;
     }
 }
