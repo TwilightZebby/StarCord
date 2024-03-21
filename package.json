@@ -1,0 +1,37 @@
+{
+  "dependencies": {
+    "bufferutil": "^4.0.6",
+    "discord.js": "^14.14.1",
+    "erlpack": "github:discord/erlpack",
+    "mongoose": "^7.6.9",
+    "sodium-native": "^4.0.4",
+    "utf-8-validate": "^5.0.9",
+    "zlib-sync": "^0.1.7"
+  },
+  "author": "TwilightZebby",
+  "license": "SEE LICENSE IN https://github.com/TwilightZebby/license/blob/main/license.md",
+  "name": "starcord",
+  "description": "Give Stars to Users instead of Messages anywhere on Discord with StarCord - a Starboard User App!",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TwilightZebby/StarCord.git"
+  },
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "discordjs",
+    "nodejs",
+    "starboard",
+    "discord-user-app",
+    "user-app"
+  ],
+  "bugs": {
+    "url": "https://github.com/TwilightZebby/StarCord/issues"
+  },
+  "homepage": "https://github.com/TwilightZebby/StarCord#readme"
+}
