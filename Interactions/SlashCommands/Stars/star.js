@@ -185,6 +185,9 @@ async function GiveStar(interaction, TargetUser)
 
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldown() })
+            .then(async newDocument => {
+                setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+            })
             .catch(async err => {
                 await LogError(err);
             });
@@ -210,6 +213,9 @@ async function GiveStar(interaction, TargetUser)
 
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldown() })
+            .then(async newDocument => {
+                setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+            })
             .catch(async err => {
                 await LogError(err);
             });
@@ -284,6 +290,9 @@ async function RevokeStar(interaction, TargetUser)
 
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING", timerExpires: calculateStarCooldown() })
+            .then(async newDocument => {
+                setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+            })
             .catch(async err => {
                 await LogError(err);
             });

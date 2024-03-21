@@ -100,6 +100,9 @@ module.exports = {
 
                 // Create Cooldown
                 await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING", timerExpires: calculateStarCooldown() })
+                .then(async newDocument => {
+                    setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+                })
                 .catch(async err => {
                     await LogError(err);
                 });
