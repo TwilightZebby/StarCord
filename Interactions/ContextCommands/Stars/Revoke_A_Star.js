@@ -64,7 +64,7 @@ module.exports = {
 
 
         // Now, check for cooldown
-        if ( await TimerModel.exists({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING" }) == null )
+        if ( await TimerModel.exists({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING" }) != null )
         {
             // Is Cooldown Expiry in the future?
             let fetchedCooldown = await TimerModel.findOne({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING" });
