@@ -82,6 +82,16 @@ module.exports = {
     ENABLE: `Enable`,
     DISABLE: `Disable`,
 
+    STAR_RANK_BRONZE: `Bronze`,
+    STAR_RANK_SILVER: `Silver`,
+    STAR_RANK_GOLD: `Gold`,
+    STAR_RANK_DIAMOND: `Diamond`,
+    STAR_RANK_PLATINUM: `Platinum`,
+    STAR_RANK_STARDUST: `Stardust`,
+
+    USER_STAR_RANK_UP: `**{{0}}** has ranked up to **{{1}}** Star Rank!`, // For a later version of StarCord
+    USER_STAR_RANK_DOWN: `**{{0}}** has ranked down to **{{1}}** Star Rank.`, // Doubt this will be used, but just in case!
+
 
 
     // ******* GIVING STARS
@@ -105,4 +115,14 @@ module.exports = {
     REVOKESTAR_COMMAND_ERROR_COOLDOWN: `You cannot revoke multiple Stars from the same User in the same short timespan. Please wait a few days before you can revoke a Star from **{{0}}** again.`,
     REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE: `You have no Stars awarded to **{{0}}** that you can revoke.`,
     REVOKESTAR_COMMAND_ERROR_GENERIC: `An error occurred while trying to revoke a Star from **{{0}}**. Please try again later.`,
+
+
+
+    // ******* RANK COMMAND
+    RANK_COMMAND_EMBED_TITLE: `{{0}} - Star Rank Card`,
+    RANK_COMMAND_EMBED_DESCRIPTION_RANK_INFO: `You currently have the **{{0}}** Star Rank.`,
+    RANK_COMMAND_EMBED_DESCRIPTION_UNRANKED: `You are currently unranked.`,
+    RANK_COMMAND_EMBED_DESCRIPTION_MAX_RANK: `You currently have the highest Star Rank - **{{0}}**!`,
+
+    RANK_COMMAND_ERROR_NO_DATA_AVALIABLE: `You have not received any Stars from other Users yet.`,
 };
