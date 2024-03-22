@@ -73,7 +73,7 @@ module.exports = {
 
     // Scope of Command's usage
     //     One of the following: DM, GUILD, ALL
-    Scope: "GUILD",
+    Scope: "ALL",
 
     // Scope of specific Subcommands Usage
     //     One of the following: DM, GUILD, ALL

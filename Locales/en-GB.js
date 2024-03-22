@@ -125,4 +125,16 @@ module.exports = {
     RANK_COMMAND_EMBED_DESCRIPTION_MAX_RANK: `You currently have the highest Star Rank - **{{0}}**!`,
 
     RANK_COMMAND_ERROR_NO_DATA_AVALIABLE: `You have not received any Stars from other Users yet.`,
+
+
+
+    // ******* INVITE COMMAND
+    INVITE_COMMAND_DESCRIPTION: `Here's the invite link to add StarCord as a User App!\n*(You can copy the link from the button if you want to share it)*`,
+    INVITE_COMMAND_BUTTON_LABEL: `Add StarCord`,
+
+
+
+    // ******* SUPPORT COMMAND
+    SUPPORT_COMMAND_DESCRIPTION: `Here's the link to StarCord's Support Server - "Twilight Domain"!`,
+    SUPPORT_COMMAND_SERVER_BUTTON_LABEL: `Join StarCord's Support Server`,
 };
