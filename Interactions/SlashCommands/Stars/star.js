@@ -175,10 +175,11 @@ async function GiveStar(interaction, TargetUser)
 
 
     // Give the User a Star!
-    if ( await UserStarModel.exists({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id }) == null )
+    let fetchedStarData = await UserStarModel.findOne({ receivingUserId: TargetUser.id });
+    if ( fetchedStarData == null )
     {
-        // This is the first ever Star givingUser has awarded to receivingUser
-        await UserStarModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, starCount: 1 })
+        // This is the first ever Star recivingUser has been given
+        await UserStarModel.create({ receivingUserId: TargetUser.id, givingUserIds: [ interaction.user.id ] })
         .then(async (newDocument) => {
             // ACK to User
             await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
@@ -202,9 +203,8 @@ async function GiveStar(interaction, TargetUser)
     }
     else
     {
-        // Not the first time givingUser has awarded a Star to receivingUser
-        let fetchedStarData = await UserStarModel.findOne({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id });
-        fetchedStarData.starCount += 1;
+        // Not the first time recivingUser has got a Star
+        fetchedStarData.givingUserIds.push(interaction.user.id);
 
         await fetchedStarData.save()
         .then(async (newDocument) => {
@@ -265,23 +265,32 @@ async function RevokeStar(interaction, TargetUser)
 
 
     // Revoke a Star!
-    if ( await UserStarModel.exists({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id }) == null )
+    let fetchedStarData = await UserStarModel.findOne({ receivingUserId: TargetUser.id });
+
+    if ( fetchedStarData == null )
     {
-        // givingUser has no Stars to revoke from receivingUser
+        // receivingUser has no Stars!
         await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
+        return;
     }
 
-    let fetchedStarData = await UserStarModel.findOne({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id });
 
-    if ( fetchedStarData.starCount < 1 )
+    if ( fetchedStarData.givingUserIds.length < 1 )
     {
-        // givingUser has no Stars to revoke from receivingUser
+        // receivingUser has no Stars!
         await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
+        return;
     }
     else
     {
-        // givingUser DOES have Stars to revoke!
-        fetchedStarData.starCount -= 1;
+        // receivingUser does have Stars, check in Array to see if givingUser has a Star to revoke
+        if ( !fetchedStarData.givingUserIds.includes(interaction.user.id) )
+        {
+            await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
+            return;
+        }
+
+        delete fetchedStarData.givingUserIds[fetchedStarData.givingUserIds.findIndex(item => item === interaction.user.id)];
 
         await fetchedStarData.save()
         .then(async (newDocument) => {

@@ -76,10 +76,11 @@ module.exports = {
 
 
         // Give the User a Star!
-        if ( await UserStarModel.exists({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id }) == null )
+        let fetchedStarData = await UserStarModel.findOne({ receivingUserId: TargetUser.id });
+        if ( fetchedStarData == null )
         {
-            // This is the first ever Star givingUser has awarded to receivingUser
-            await UserStarModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, starCount: 1 })
+            // This is the first ever Star recivingUser has been given
+            await UserStarModel.create({ receivingUserId: TargetUser.id, givingUserIds: [ interaction.user.id ] })
             .then(async (newDocument) => {
                 // ACK to User
                 await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
@@ -103,9 +104,8 @@ module.exports = {
         }
         else
         {
-            // Not the first time givingUser has awarded a Star to receivingUser
-            let fetchedStarData = await UserStarModel.findOne({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id });
-            fetchedStarData.starCount += 1;
+            // Not the first time recivingUser has got a Star
+            fetchedStarData.givingUserIds.push(interaction.user.id);
 
             await fetchedStarData.save()
             .then(async (newDocument) => {
