@@ -107,7 +107,7 @@ module.exports = {
 
 
     // ******* REVOKING STARS
-    REVOKESTAR_COMMAND_SUCCESS: `You have revoked one a Star from **{{0}}**!`,
+    REVOKESTAR_COMMAND_SUCCESS: `You have revoked one Star from **{{0}}**!`,
 
     REVOKESTAR_COMMAND_ERROR_BOTS_UNSUPPORTED: `You cannot revoke a Star from a Bot.`,
     REVOKESTAR_COMMAND_ERROR_SELF_UNSUPPORTED: `You cannot revoke a Star from yourself.`,
