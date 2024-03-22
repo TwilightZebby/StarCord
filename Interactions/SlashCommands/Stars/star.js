@@ -1,7 +1,7 @@
 const { ChatInputCommandInteraction, ChatInputApplicationCommandData, ApplicationCommandType, AutocompleteInteraction, ApplicationCommandOptionType, User, UserFlags } = require("discord.js");
 const { localize } = require("../../../BotModules/LocalizationModule");
 const { TimerModel, UserStarModel } = require("../../../Mongoose/Models");
-const { calculateStarCooldown } = require("../../../BotModules/TimerModule");
+const { calculateStarCooldownEnd } = require("../../../BotModules/TimerModule");
 
 module.exports = {
     // Command's Name
@@ -185,9 +185,9 @@ async function GiveStar(interaction, TargetUser)
             await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
 
             // Create Cooldown
-            await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldown() })
+            await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
             .then(async newDocument => {
-                setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+                setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
             })
             .catch(async err => {
                 await LogError(err);
@@ -212,9 +212,9 @@ async function GiveStar(interaction, TargetUser)
             await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
 
             // Create Cooldown
-            await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldown() })
+            await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
             .then(async newDocument => {
-                setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+                setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
             })
             .catch(async err => {
                 await LogError(err);
@@ -298,9 +298,9 @@ async function RevokeStar(interaction, TargetUser)
             await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_SUCCESS', TargetUser.displayName) });
 
             // Create Cooldown
-            await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING", timerExpires: calculateStarCooldown() })
+            await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING", timerExpires: calculateStarCooldownEnd() })
             .then(async newDocument => {
-                setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+                setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
             })
             .catch(async err => {
                 await LogError(err);

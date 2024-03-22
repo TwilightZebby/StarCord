@@ -2,7 +2,7 @@ const { ApplicationCommandType, ApplicationCommandData, ContextMenuCommandIntera
 const { localize } = require("../../../BotModules/LocalizationModule");
 const { TimerModel, UserStarModel } = require("../../../Mongoose/Models");
 const { LogError } = require("../../../BotModules/LoggingModule");
-const { calculateStarCooldown } = require("../../../BotModules/TimerModule");
+const { calculateStarCooldownEnd } = require("../../../BotModules/TimerModule");
 
 module.exports = {
     // Command's Name
@@ -86,9 +86,9 @@ module.exports = {
                 await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
 
                 // Create Cooldown
-                await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldown() })
+                await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
                 .then(async newDocument => {
-                    setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+                    setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
                 })
                 .catch(async err => {
                     await LogError(err);
@@ -113,9 +113,9 @@ module.exports = {
                 await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
 
                 // Create Cooldown
-                await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldown() })
+                await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
                 .then(async newDocument => {
-                    setInterval(async () => { await newDocument.deleteOne(); }, calculateStarCooldown());
+                    setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
                 })
                 .catch(async err => {
                     await LogError(err);

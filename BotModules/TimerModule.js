@@ -44,9 +44,9 @@ module.exports = {
 
 
     /**
-     * Calculates the UNIX timestamp for Star Cooldowns
+     * Calculates the UNIX timestamp for Star Cooldown ending
      */
-    calculateStarCooldown()
+    calculateStarCooldownEnd()
     {
         const now = Date.now();
         return now + 2.592e+8;
