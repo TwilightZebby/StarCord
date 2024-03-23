@@ -12,7 +12,7 @@
   "license": "SEE LICENSE IN https://github.com/TwilightZebby/license/blob/main/license.md",
   "name": "starcord",
   "description": "Give Stars to Users instead of Messages anywhere on Discord with StarCord - a Starboard User App!",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
