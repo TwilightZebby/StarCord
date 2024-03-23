@@ -25,6 +25,26 @@ function calculateRank(starCount, locale)
 
 
 /**
+ * Returns the amount needed for the next Star Rank
+ * 
+ * @param {Number} starCount 
+ * 
+ * @return {Number} Number of Stars needed for next Rank, or -1 for "Already at highest Rank"
+ */
+function getNextRankRequirement(starCount)
+{
+    if ( starCount < StarRankings.BRONZE ) { return StarRankings.BRONZE; }
+    else if ( starCount > StarRankings.BRONZE && starCount < StarRankings.SILVER ) { return StarRankings.SILVER; }
+    else if ( starCount > StarRankings.SILVER && starCount < StarRankings.GOLD ) { return StarRankings.Gold; }
+    else if ( starCount > StarRankings.GOLD && starCount < StarRankings.DIAMOND ) { return StarRankings.DIAMOND; }
+    else if ( starCount > StarRankings.DIAMOND && starCount < StarRankings.PLATINUM ) { return StarRankings.PLATINUM; }
+    else if ( starCount > StarRankings.PLATINUM && starCount < StarRankings.STARDUST ) { return StarRankings.STARDUST; }
+    else { return -1; }
+}
+
+
+
+/**
  * Returns the colour (in HEX) for that Rank
  * 
  * @param {Number} starCount 
@@ -123,12 +143,20 @@ module.exports = {
         else
         {
             let rankEmbed = new EmbedBuilder().setTitle(localize(interaction.locale, 'RANK_COMMAND_EMBED_TITLE', interaction.user.displayName));
-            if ( fetchedStarData.givingUserIds.length < StarRankings.BRONZE ) { rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_UNRANKED')); }
-            else if ( fetchedStarData.givingUserIds.length > StarRankings.STARDUST ) { rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_MAX_RANK', localize(interaction.locale, 'STAR_RANK_STARDUST'))).setColor('#8B56F2'); }
+            if ( fetchedStarData.givingUserIds.length < StarRankings.BRONZE )
+            {
+                rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_UNRANKED'))
+                .addFields({ name: localize(interaction.locale, 'RANK_COMMAND_EMBED_PROGRESS_FIELD_TITLE', localize(interaction.locale, 'STAR_RANK_BRONZE')), value: `${Math.floor(fetchedStarData.givingUserIds.length / StarRankings.BRONZE)}%` });
+            }
+            else if ( fetchedStarData.givingUserIds.length > StarRankings.STARDUST )
+            {
+                rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_MAX_RANK', localize(interaction.locale, 'STAR_RANK_STARDUST'))).setColor('#8B56F2');
+            }
             else
             {
                 rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_RANK_INFO', calculateRank(fetchedStarData.givingUserIds.length, interaction.locale)))
-                .setColor(getRankColor(fetchedStarData.givingUserIds.length));
+                .setColor(getRankColor(fetchedStarData.givingUserIds.length))
+                .addFields({ name: localize(interaction.locale, 'RANK_COMMAND_EMBED_PROGRESS_FIELD_TITLE', calculateRank(fetchedStarData.givingUserIds.length, interaction.locale)), value: `${Math.floor(fetchedStarData.givingUserIds.length / getNextRankRequirement(fetchedStarData.givingUserIds.length))}%` });
             }
 
             await interaction.reply({ ephemeral: true, embeds: [rankEmbed] });

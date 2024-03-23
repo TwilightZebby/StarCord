@@ -123,6 +123,7 @@ module.exports = {
     RANK_COMMAND_EMBED_DESCRIPTION_RANK_INFO: `You currently have the **{{0}}** Star Rank.`,
     RANK_COMMAND_EMBED_DESCRIPTION_UNRANKED: `You are currently unranked.`,
     RANK_COMMAND_EMBED_DESCRIPTION_MAX_RANK: `You currently have the highest Star Rank - **{{0}}**!`,
+    RANK_COMMAND_EMBED_PROGRESS_FIELD_TITLE: `Progress to {{0}} Rank`,
 
     RANK_COMMAND_ERROR_NO_DATA_AVALIABLE: `You have not received any Stars from other Users yet.`,
 
