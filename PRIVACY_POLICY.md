@@ -1,18 +1,18 @@
 
-# StarCord - Privacy Policy
-Last Updated: 22nd March 2024
+# UserStars - Privacy Policy
+Last Updated: 15th April 2024
 
-Effective: 22nd March 2024
+Effective: 15th April 2024
 
 ---
 
 ## Introduction
-**StarCord** (henseforth "**The Bot**") does __not__, and will __never__, collect & store Messages, User Data, or Server Data without explicit notice & consent.
+**UserStars** (henseforth "**The Bot**") does __not__, and will __never__, collect & store Messages, User Data, or Server Data without explicit notice & consent.
 Additionally, **The Bot** will __never__ sell or give away the Data that it does store.
 
 The developers of **The Bot** firmly believes in a "we don't want your data keep it away from us" process - thus, **The Bot** will be developed as "stateless" as possible (i.e: without needing to store any information or data at all). If features and functions are not possible to develop "stateless", we will explicitly include them in this **Privacy Policy**, covering exactly what is needed to be stored, and for what purpose..
 
-**The Bot**'s source code is viewable in **The Bot**'s GitHub Repo ( https://github.com/TwilightZebby/StarCord ).
+**The Bot**'s source code is viewable in **The Bot**'s GitHub Repo ( https://github.com/TwilightZebby/UserStars ).
 
 ---
 
@@ -36,7 +36,7 @@ You can see the public API Documentation regarding what the locale data includes
 ---
 
 ## Final Notes
-The Developer of **The Bot**, TwilightZebby, is contactable for matters regarding **The Bot** via GitHub, preferrably via opening an Issue Ticket or Discussion on **The Bot**'s [GitHub Repo](https://github.com/TwilightZebby/StarCord). You can also contact TwilightZebby via **The Bot**'s [Support Server](https://discord.gg/4bFgUyWUMY) on Discord.
+The Developer of **The Bot**, TwilightZebby, is contactable for matters regarding **The Bot** via GitHub, preferrably via opening an Issue Ticket or Discussion on **The Bot**'s [GitHub Repo](https://github.com/TwilightZebby/UserStars). You can also contact TwilightZebby via **The Bot**'s [Support Server](https://discord.gg/4bFgUyWUMY) on Discord.
 
 Please also see [Discord's own Privacy Policy](https://discord.com/privacy).
 

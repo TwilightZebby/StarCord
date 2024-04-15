@@ -10,8 +10,8 @@
   },
   "author": "TwilightZebby",
   "license": "SEE LICENSE IN https://github.com/TwilightZebby/license/blob/main/license.md",
-  "name": "starcord",
-  "description": "Give Stars to Users instead of Messages anywhere on Discord with StarCord - a Starboard User App!",
+  "name": "userstars",
+  "description": "Give Stars to Users instead of Messages anywhere on Discord with UserStars - a Starboard User App!",
   "version": "1.0.1",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TwilightZebby/StarCord.git"
+    "url": "git+https://github.com/TwilightZebby/UserStars.git"
   },
   "keywords": [
     "discord",
@@ -31,7 +31,7 @@
     "user-app"
   ],
   "bugs": {
-    "url": "https://github.com/TwilightZebby/StarCord/issues"
+    "url": "https://github.com/TwilightZebby/UserStars/issues"
   },
-  "homepage": "https://github.com/TwilightZebby/StarCord#readme"
+  "homepage": "https://github.com/TwilightZebby/UserStars#readme"
 }

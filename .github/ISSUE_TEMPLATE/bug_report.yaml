@@ -1,5 +1,5 @@
 name: Bug Report
-description: Template for reporting Bugs or Issues found with StarCord
+description: Template for reporting Bugs or Issues found with UserStars
 title: '[Bug]: '
 labels:
   - bug
@@ -9,7 +9,7 @@ body:
     attributes:
       label: Description of Bug
       description: >-
-        What is the bug or issue you are experiencing with StarCord? Please ensure
+        What is the bug or issue you are experiencing with UserStars? Please ensure
         to be clear yet concise. 
     validations:
       required: true

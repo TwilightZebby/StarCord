@@ -1,7 +1,7 @@
 const { Client, Options, GatewayIntentBits, Collection, Partials, User, GuildMember } = require("discord.js");
 
 // User IDs for HomeCord and my Testing Bot just to prevent them from being removed from caches
-let starcordUserId = [ "1220284125269856326", "795718481873469500" ];
+let userstarsUserId = [ "1220284125269856326", "795718481873469500" ];
 
 module.exports =
 {
@@ -16,15 +16,15 @@ module.exports =
             messages: { interval: 3_600, lifetime: 1_800 },
             users: {
                 interval: 3_600,
-                filter: () => user => !starcordUserId.includes(user.id)
+                filter: () => user => !userstarsUserId.includes(user.id)
             },
             guildMembers: {
                 interval: 3_600,
-                filter: () => member => !starcordUserId.includes(member.id)
+                filter: () => member => !userstarsUserId.includes(member.id)
             },
             threadMembers: {
                 interval: 86_400,
-                filter: () => member => !starcordUserId.includes(member.id)
+                filter: () => member => !userstarsUserId.includes(member.id)
             },
             threads: { interval: 86_400, lifetime: 86_400 }
         }

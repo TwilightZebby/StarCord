@@ -1,10 +1,10 @@
 contact_links:
   - name: Feedback & Feature Requests
-    url: https://github.com/TwilightZebby/StarCord/discussions/new/choose
-    about: Have ideas for StarCord? Post it in our Discussions tab!
+    url: https://github.com/TwilightZebby/UserStars/discussions/new/choose
+    about: Have ideas for UserStars? Post it in our Discussions tab!
   - name: Support Server
     url: https://discord.gg/4bFgUyWUMY
     about: Need real-time help & support? Head on over to our Support Server on Discord.
   - name: Invite Bot
     url: https://discord.com/oauth2/authorize?client_id=1220284125269856326&scope=applications.commands&integration_type=1
-    about: Want to add StarCord as a User App? Use this link here!
+    about: Want to add UserStars as a User App? Use this link here!

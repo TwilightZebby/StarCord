@@ -5,9 +5,9 @@ module.exports = {
 
 
 
-    // ******* FOR STARCORD DESCRIPTIONS, ETC
-    STARCORD_DESCRIPTION_SHORT: `.`,
-    STARCORD_DESCRIPTION_LONG: `.`,
+    // ******* FOR USERSTARS DESCRIPTIONS, ETC
+    USERSTARS_DESCRIPTION_SHORT: `.`,
+    USERSTARS_DESCRIPTION_LONG: `.`,
 
 
 
@@ -73,7 +73,7 @@ module.exports = {
 
 
 
-    // ******* GENERIC STARCORD STUFF
+    // ******* GENERIC USERSTARS STUFF
     TRUE_UPPERCASE: `TRUE`,
     FALSE_UPPERCASE: `FALSE`,
     TRUE: `True`,
@@ -89,7 +89,7 @@ module.exports = {
     STAR_RANK_PLATINUM: `Platinum`,
     STAR_RANK_STARDUST: `Stardust`,
 
-    USER_STAR_RANK_UP: `**{{0}}** has ranked up to **{{1}}** Star Rank!`, // For a later version of StarCord
+    USER_STAR_RANK_UP: `**{{0}}** has ranked up to **{{1}}** Star Rank!`, // For a later version of UserStars
     USER_STAR_RANK_DOWN: `**{{0}}** has ranked down to **{{1}}** Star Rank.`, // Doubt this will be used, but just in case!
 
 
@@ -130,12 +130,12 @@ module.exports = {
 
 
     // ******* INVITE COMMAND
-    INVITE_COMMAND_DESCRIPTION: `Here's the invite link to add StarCord as a User App!\n*(You can copy the link from the button if you want to share it)*`,
-    INVITE_COMMAND_BUTTON_LABEL: `Add StarCord`,
+    INVITE_COMMAND_DESCRIPTION: `Here's the invite link to add UserStars as a User App!\n*(You can copy the link from the button if you want to share it)*`,
+    INVITE_COMMAND_BUTTON_LABEL: `Add UserStars`,
 
 
 
     // ******* SUPPORT COMMAND
-    SUPPORT_COMMAND_DESCRIPTION: `Here's the link to StarCord's Support Server - "Twilight Domain"!`,
-    SUPPORT_COMMAND_SERVER_BUTTON_LABEL: `Join StarCord's Support Server`,
+    SUPPORT_COMMAND_DESCRIPTION: `Here's the link to UserStars' Support Server - "Twilight Domain"!`,
+    SUPPORT_COMMAND_SERVER_BUTTON_LABEL: `Join UserStars' Support Server`,
 };

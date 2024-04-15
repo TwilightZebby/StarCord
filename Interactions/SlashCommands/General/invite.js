@@ -7,12 +7,12 @@ module.exports = {
     Name: "invite",
 
     // Command's Description
-    Description: `Shows the invite link to add StarCord as a User App`,
+    Description: `Shows the invite link to add UserStars as a User App`,
 
     // Command's Localised Descriptions
     LocalisedDescriptions: {
-        'en-GB': `Shows the invite link to add StarCord as a User App`,
-        'en-US': `Shows the invite link to add StarCord as a User App`
+        'en-GB': `Shows the invite link to add UserStars as a User App`,
+        'en-US': `Shows the invite link to add UserStars as a User App`
     },
 
     // Command's Category

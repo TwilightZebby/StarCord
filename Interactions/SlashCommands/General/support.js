@@ -7,12 +7,12 @@ module.exports = {
     Name: "support",
 
     // Command's Description
-    Description: `Shows StarCord's Support Server Invite link`,
+    Description: `Shows UserStars' Support Server Invite link`,
 
     // Command's Localised Descriptions
     LocalisedDescriptions: {
-        'en-GB': `Shows StarCord's Support Server Invite link`,
-        'en-US': `Shows StarCord's Support Server Invite link`
+        'en-GB': `Shows UserStars' Support Server Invite link`,
+        'en-US': `Shows UserStars' Support Server Invite link`
     },
 
     // Command's Category
