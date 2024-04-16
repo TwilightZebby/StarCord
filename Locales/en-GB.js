@@ -89,7 +89,7 @@ module.exports = {
     STAR_RANK_PLATINUM: `Platinum`,
     STAR_RANK_STARDUST: `Stardust`,
 
-    USER_STAR_RANK_UP: `**{{0}}** has ranked up to **{{1}}** Star Rank!`, // For a later version of UserStars
+    USER_STAR_RANK_UP: `**{{0}}** has ranked up to **{{1}}** Star Rank!`,
     USER_STAR_RANK_DOWN: `**{{0}}** has ranked down to **{{1}}** Star Rank.`, // Doubt this will be used, but just in case!
 
 

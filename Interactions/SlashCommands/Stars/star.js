@@ -1,7 +1,31 @@
-const { ChatInputCommandInteraction, ChatInputApplicationCommandData, ApplicationCommandType, AutocompleteInteraction, ApplicationCommandOptionType, User, UserFlags } = require("discord.js");
+const { ChatInputCommandInteraction, ChatInputApplicationCommandData, ApplicationCommandType, AutocompleteInteraction, ApplicationCommandOptionType, User, UserFlags, Locale } = require("discord.js");
 const { localize } = require("../../../BotModules/LocalizationModule");
 const { TimerModel, UserStarModel } = require("../../../Mongoose/Models");
 const { calculateStarCooldownEnd } = require("../../../BotModules/TimerModule");
+const StarRankings = require("../../../Resources/starRankings.js");
+const { compareRanks } = require("../../../BotModules/RankModule.js");
+
+
+
+/**
+ * Calculate the Star Rank and returns its name
+ * 
+ * @param {Number} starCount 
+ * @param {Locale} locale 
+ * 
+ * @return {String} Rank's Name
+ */
+function getRankDisplayName(starCount, locale)
+{
+    if ( starCount > StarRankings.BRONZE && starCount < StarRankings.SILVER ) { return localize(locale, 'STAR_RANK_BRONZE'); }
+    else if ( starCount > StarRankings.SILVER && starCount < StarRankings.GOLD ) { return localize(locale, 'STAR_RANK_SILVER'); }
+    else if ( starCount > StarRankings.GOLD && starCount < StarRankings.DIAMOND ) { return localize(locale, 'STAR_RANK_GOLD'); }
+    else if ( starCount > StarRankings.DIAMOND && starCount < StarRankings.PLATINUM ) { return localize(locale, 'STAR_RANK_DIAMOND'); }
+    else if ( starCount > StarRankings.PLATINUM && starCount < StarRankings.STARDUST ) { return localize(locale, 'STAR_RANK_PLATINUM'); }
+    else { return localize(locale, 'STAR_RANK_STARDUST'); }
+}
+
+
 
 module.exports = {
     // Command's Name
@@ -182,7 +206,7 @@ async function GiveStar(interaction, TargetUser)
         await UserStarModel.create({ receivingUserId: TargetUser.id, givingUserIds: [ interaction.user.id ] })
         .then(async (newDocument) => {
             // ACK to User
-            await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
+            await interaction.reply({ content: localize(interaction.guildLocale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
 
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
@@ -206,10 +230,14 @@ async function GiveStar(interaction, TargetUser)
         // Not the first time recivingUser has got a Star
         fetchedStarData.givingUserIds.push(interaction.user.id);
 
+        // Check for rank-up
+        let hasRankChanged = compareRanks(fetchedStarData.givingUserIds.length - 1, fetchedStarData.givingUserIds.length);
+
         await fetchedStarData.save()
         .then(async (newDocument) => {
             // ACK to User
-            await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
+            if ( hasRankChanged === 'NO_CHANGE' ) { await interaction.reply({ content: localize(interaction.guildLocale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) }); }
+            else { await interaction.reply({ content: `${localize(interaction.guildLocale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName)}\n\n${localize(interaction.guildLocale, 'USER_STAR_RANK_UP', TargetUser.displayName, getRankDisplayName(fetchedStarData.givingUserIds.length, interaction.guildLocale))}` }); }
 
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
