@@ -91,8 +91,8 @@ module.exports = {
     // ******* GIVING STARS
     GIVESTAR_COMMAND_SUCCESS_STANDARD: `**{{0}}** has given a :star: Star to **{{1}}**!`,
     GIVESTAR_COMMAND_SUCCESS_YOU_TRIED: `**{{0}}** has given a :star: "You Tried" Star to **{{1}}**!`,
-    GIVESTAR_COMMAND_SUCCESS_GLOWING: `**{{0}}** has given a :sparkles: Glowing Star to **{{1}}**!`,
     GIVESTAR_COMMAND_SUCCESS_SPARKLING: `**{{0}}** has given a :star2: Sparkling Star to **{{1}}**!`,
+    GIVESTAR_COMMAND_SUCCESS_GLOWING: `**{{0}}** has given a :sparkles: Glowing Star to **{{1}}**!`,
 
     GIVESTAR_COMMAND_ERROR_BOTS_UNSUPPORTED: `You cannot give a Star to a Bot.`,
     GIVESTAR_COMMAND_ERROR_SELF_UNSUPPORTED: `You cannot give yourself a Star. Try giving one to another User instead.`,

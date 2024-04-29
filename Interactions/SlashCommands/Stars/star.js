@@ -105,6 +105,22 @@ module.exports = {
                             'en-US': "User to give a Star to"
                         },
                         required: true
+                    },
+                    {
+                        type: ApplicationCommandOptionType.String,
+                        name: "star-type",
+                        description: "Type of Star to give (Defaults to Standard)",
+                        description_localizations: {
+                            'en-GB': "Type of Star to give (Defaults to Standard)",
+                            'en-US': "Type of Star to give (Defaults to Standard)"
+                        },
+                        required: false,
+                        choices: [
+                            { name: "Standard", value: "STANDARD" },
+                            { name: "You Tried", value: "YOU_TRIED" },
+                            { name: "Sparkling", value: "SPARKLING" },
+                            { name: "Glowing", value: "GLOWING" }
+                        ]
                     }
                 ]
             },
@@ -198,6 +214,17 @@ async function GiveStar(interaction, TargetUser)
     }
 
 
+    // Grab what kind of Star it was
+    const InputStarType = interaction.options.getString("star-type");
+    let successMessage = "";
+
+    if ( InputStarType === "YOU_TRIED" ) { successMessage = localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS_YOU_TRIED', interaction.user.displayName, TargetUser.displayName); }
+    else if ( InputStarType === "SPARKLING" ) { successMessage = localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS_SPARKLING', interaction.user.displayName, TargetUser.displayName); }
+    else if ( InputStarType === "GLOWING" ) { successMessage = localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS_GLOWING', interaction.user.displayName, TargetUser.displayName); }
+    else { successMessage = localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS_STANDARD', interaction.user.displayName, TargetUser.displayName); }
+    
+
+
     // Give the User a Star!
     let fetchedStarData = await UserStarModel.findOne({ receivingUserId: TargetUser.id });
     if ( fetchedStarData == null )
@@ -206,7 +233,7 @@ async function GiveStar(interaction, TargetUser)
         await UserStarModel.create({ receivingUserId: TargetUser.id, starCount: 1 })
         .then(async (newDocument) => {
             // ACK to User
-            await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
+            await interaction.reply({ content: successMessage });
 
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
@@ -236,8 +263,8 @@ async function GiveStar(interaction, TargetUser)
         await fetchedStarData.save()
         .then(async (newDocument) => {
             // ACK to User
-            if ( hasRankChanged === 'NO_CHANGE' ) { await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) }); }
-            else { await interaction.reply({ content: `${localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName)}\n\n${localize(interaction.guildLocale, 'USER_STAR_RANK_UP', TargetUser.displayName, getRankDisplayName(fetchedStarData.starCount, interaction.guildLocale))}` }); }
+            if ( hasRankChanged === 'NO_CHANGE' ) { await interaction.reply({ content: successMessage }); }
+            else { await interaction.reply({ content: `${successMessage}\n\n${localize(interaction.guildLocale, 'USER_STAR_RANK_UP', TargetUser.displayName, getRankDisplayName(fetchedStarData.starCount, interaction.guildLocale))}` }); }
 
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
