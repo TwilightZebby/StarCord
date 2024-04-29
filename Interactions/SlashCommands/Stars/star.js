@@ -46,14 +46,14 @@ module.exports = {
 
     // Cooldown, in seconds
     //     Defaults to 3 seconds if missing
-    Cooldown: 60,
+    Cooldown: 30,
 
     // Cooldowns for specific subcommands and/or subcommand-groups
     //     IF SUBCOMMAND: name as "subcommandName"
     //     IF SUBCOMMAND GROUP: name as "subcommandGroupName_subcommandName"
     SubcommandCooldown: {
-        "give": 60,
-        "revoke": 60
+        "give": 30,
+        "revoke": 30
     },
 
     // Scope of Command's usage
@@ -211,7 +211,7 @@ async function GiveStar(interaction, TargetUser)
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
             .then(async newDocument => {
-                setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
+                setInterval(async () => { await newDocument.deleteOne(); }, 8.64e+7); // 24 hours
             })
             .catch(async err => {
                 await LogError(err);
@@ -242,7 +242,7 @@ async function GiveStar(interaction, TargetUser)
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
             .then(async newDocument => {
-                setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
+                setInterval(async () => { await newDocument.deleteOne(); }, 8.64e+7); // 24 hours
             })
             .catch(async err => {
                 await LogError(err);
@@ -328,7 +328,7 @@ async function RevokeStar(interaction, TargetUser)
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING", timerExpires: calculateStarCooldownEnd() })
             .then(async newDocument => {
-                setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
+                setInterval(async () => { await newDocument.deleteOne(); }, 8.64e+7); // 24 hours
             })
             .catch(async err => {
                 await LogError(err);

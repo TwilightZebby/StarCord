@@ -21,7 +21,7 @@ module.exports = {
 
     // Cooldown, in seconds
     //     Defaults to 3 seconds if missing
-    Cooldown: 60,
+    Cooldown: 30,
 
     // Scope of Command's usage
     //     One of the following: DM, GUILD, ALL
@@ -110,7 +110,7 @@ module.exports = {
                 // Create Cooldown
                 await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING", timerExpires: calculateStarCooldownEnd() })
                 .then(async newDocument => {
-                    setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
+                    setInterval(async () => { await newDocument.deleteOne(); }, 8.64e+7); // 24 hours
                 })
                 .catch(async err => {
                     await LogError(err);
