@@ -45,7 +45,7 @@ module.exports = {
 
     // Cooldown, in seconds
     //     Defaults to 3 seconds if missing
-    Cooldown: 60,
+    Cooldown: 30,
 
     // Scope of Command's usage
     //     One of the following: DM, GUILD, ALL
@@ -104,15 +104,15 @@ module.exports = {
         if ( fetchedStarData == null )
         {
             // This is the first ever Star recivingUser has been given
-            await UserStarModel.create({ receivingUserId: TargetUser.id, givingUserIds: [ interaction.user.id ] })
+            await UserStarModel.create({ receivingUserId: TargetUser.id, starCount: 1 })
             .then(async (newDocument) => {
                 // ACK to User
-                await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
+                await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS_STANDARD', interaction.user.displayName, TargetUser.displayName) });
 
                 // Create Cooldown
                 await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
                 .then(async newDocument => {
-                    setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
+                    setInterval(async () => { await newDocument.deleteOne(); }, 8.64e+7); // 24 hours
                 })
                 .catch(async err => {
                     await LogError(err);
@@ -129,21 +129,21 @@ module.exports = {
         else
         {
             // Not the first time recivingUser has got a Star
-            fetchedStarData.givingUserIds.push(interaction.user.id);
+            fetchedStarData.starCount += 1;
 
             // Check for rank-up
-            let hasRankChanged = compareRanks(fetchedStarData.givingUserIds.length - 1, fetchedStarData.givingUserIds.length);
+            let hasRankChanged = compareRanks(fetchedStarData.starCount - 1, fetchedStarData.starCount);
 
             await fetchedStarData.save()
             .then(async (newDocument) => {
                 // ACK to User
-                if ( hasRankChanged === 'NO_CHANGE' ) { await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) }); }
-                else { await interaction.reply({ content: `${localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName)}\n\n${localize(interaction.guildLocale, 'USER_STAR_RANK_UP', TargetUser.displayName, getRankDisplayName(fetchedStarData.givingUserIds.length, interaction.guildLocale))}` }); }
+                if ( hasRankChanged === 'NO_CHANGE' ) { await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS_STANDARD', interaction.user.displayName, TargetUser.displayName) }); }
+                else { await interaction.reply({ content: `${localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS_STANDARD', interaction.user.displayName, TargetUser.displayName)}\n\n${localize(interaction.guildLocale, 'USER_STAR_RANK_UP', TargetUser.displayName, getRankDisplayName(fetchedStarData.starCount, interaction.guildLocale))}` }); }
 
                 // Create Cooldown
                 await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
                 .then(async newDocument => {
-                    setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
+                    setInterval(async () => { await newDocument.deleteOne(); }, 8.64e+7); // 24 hours
                 })
                 .catch(async err => {
                     await LogError(err);

@@ -21,7 +21,7 @@ module.exports = {
 
     // Cooldown, in seconds
     //     Defaults to 3 seconds if missing
-    Cooldown: 60,
+    Cooldown: 30,
 
     // Scope of Command's usage
     //     One of the following: DM, GUILD, ALL
@@ -85,7 +85,7 @@ module.exports = {
         }
 
 
-        if ( fetchedStarData.givingUserIds.length < 1 )
+        if ( fetchedStarData.starCount < 1 )
         {
             // receivingUser has no Stars!
             await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
@@ -93,14 +93,14 @@ module.exports = {
         }
         else
         {
-            // receivingUser does have Stars, check in Array to see if givingUser has a Star to revoke
-            if ( !fetchedStarData.givingUserIds.includes(interaction.user.id) )
+            // Only revoke if the User has actually given this other User a Star recently
+            if ( await TimerModel.exists({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING" }) == null )
             {
                 await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
                 return;
             }
 
-            delete fetchedStarData.givingUserIds[fetchedStarData.givingUserIds.findIndex(item => item === interaction.user.id)];
+            fetchedStarData.starCount -= 1;
 
             await fetchedStarData.save()
             .then(async (newDocument) => {
@@ -110,7 +110,7 @@ module.exports = {
                 // Create Cooldown
                 await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "REVOKING", timerExpires: calculateStarCooldownEnd() })
                 .then(async newDocument => {
-                    setInterval(async () => { await newDocument.deleteOne(); }, 2.592e+8);
+                    setInterval(async () => { await newDocument.deleteOne(); }, 8.64e+7); // 24 hours
                 })
                 .catch(async err => {
                     await LogError(err);
