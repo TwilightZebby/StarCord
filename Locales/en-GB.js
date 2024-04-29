@@ -5,12 +5,6 @@ module.exports = {
 
 
 
-    // ******* FOR USERSTARS DESCRIPTIONS, ETC
-    USERSTARS_DESCRIPTION_SHORT: `.`,
-    USERSTARS_DESCRIPTION_LONG: `.`,
-
-
-
     // ******* GENERIC SLASH COMMAND STUFF
     SLASH_COMMAND_ERROR_GENERIC: `Sorry, but there was a problem trying to run this Slash Command...`,
     SLASH_COMMAND_ERROR_GUILDS_UNSUPPORTED: `Sorry, but this Slash Command can only be used in Direct Messages (DMs) with me.`,
@@ -95,13 +89,16 @@ module.exports = {
 
 
     // ******* GIVING STARS
-    GIVESTAR_COMMAND_SUCCESS: `**{{0}}** has given a :star: Star to **{{1}}**!`,
+    GIVESTAR_COMMAND_SUCCESS_STANDARD: `**{{0}}** has given a :star: Star to **{{1}}**!`,
+    GIVESTAR_COMMAND_SUCCESS_YOU_TRIED: `**{{0}}** has given a :star: "You Tried" Star to **{{1}}**!`,
+    GIVESTAR_COMMAND_SUCCESS_GLOWING: `**{{0}}** has given a :sparkles: Glowing Star to **{{1}}**!`,
+    GIVESTAR_COMMAND_SUCCESS_SPARKLING: `**{{0}}** has given a :star2: Sparkling Star to **{{1}}**!`,
 
     GIVESTAR_COMMAND_ERROR_BOTS_UNSUPPORTED: `You cannot give a Star to a Bot.`,
     GIVESTAR_COMMAND_ERROR_SELF_UNSUPPORTED: `You cannot give yourself a Star. Try giving one to another User instead.`,
     GIVESTAR_COMMAND_ERROR_SYSTEM_UNSUPPORTED: `You cannot give Discord's System User a Star.`,
     GIVESTAR_COMMAND_ERROR_SPAMMERS_UNSUPPORTED: `You cannot give a Star to a User that has either one of Discord's "Likely Spammer" or "Quarantined" flags.`,
-    GIVESTAR_COMMAND_ERROR_COOLDOWN: `You cannot give the same User multiple Stars in the same short timespan. Please wait a few days before you can give **{{0}}** another Star again.`,
+    GIVESTAR_COMMAND_ERROR_COOLDOWN: `You cannot give the same User multiple Stars in the same short timespan. Please wait a day before you can give **{{0}}** another Star again.`,
     GIVESTAR_COMMAND_ERROR_GENERIC: `An error occurred while trying to give **{{0}}** a Star. Please try again later.`,
 
 
@@ -112,8 +109,8 @@ module.exports = {
     REVOKESTAR_COMMAND_ERROR_BOTS_UNSUPPORTED: `You cannot revoke a Star from a Bot.`,
     REVOKESTAR_COMMAND_ERROR_SELF_UNSUPPORTED: `You cannot revoke a Star from yourself.`,
     REVOKESTAR_COMMAND_ERROR_SYSTEM_UNSUPPORTED: `You cannot revoke a Star from Discord's System User.`,
-    REVOKESTAR_COMMAND_ERROR_COOLDOWN: `You cannot revoke multiple Stars from the same User in the same short timespan. Please wait a few days before you can revoke a Star from **{{0}}** again.`,
-    REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE: `You have no Stars awarded to **{{0}}** that you can revoke.`,
+    REVOKESTAR_COMMAND_ERROR_COOLDOWN: `You cannot revoke multiple Stars from the same User in the same short timespan.`,
+    REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE: `You have no recently given Stars for **{{0}}** that you can revoke.\n\nYou can only revoke Stars you have recently given in the last 24 hours.`,
     REVOKESTAR_COMMAND_ERROR_GENERIC: `An error occurred while trying to revoke a Star from **{{0}}**. Please try again later.`,
 
 

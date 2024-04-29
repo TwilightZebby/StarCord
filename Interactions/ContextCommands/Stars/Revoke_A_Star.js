@@ -93,12 +93,12 @@ module.exports = {
         }
         else
         {
-            // receivingUser does have Stars, check in Array to see if givingUser has a Star to revoke
-            /* if ( !fetchedStarData.givingUserIds.includes(interaction.user.id) )
+            // Only revoke if the User has actually given this other User a Star recently
+            if ( await TimerModel.exists({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING" }) == null )
             {
                 await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
                 return;
-            } */
+            }
 
             fetchedStarData.starCount -= 1;
 
