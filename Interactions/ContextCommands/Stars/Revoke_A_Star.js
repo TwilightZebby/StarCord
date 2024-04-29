@@ -85,7 +85,7 @@ module.exports = {
         }
 
 
-        if ( fetchedStarData.givingUserIds.length < 1 )
+        if ( fetchedStarData.starCount < 1 )
         {
             // receivingUser has no Stars!
             await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
@@ -94,13 +94,13 @@ module.exports = {
         else
         {
             // receivingUser does have Stars, check in Array to see if givingUser has a Star to revoke
-            if ( !fetchedStarData.givingUserIds.includes(interaction.user.id) )
+            /* if ( !fetchedStarData.givingUserIds.includes(interaction.user.id) )
             {
                 await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
                 return;
-            }
+            } */
 
-            delete fetchedStarData.givingUserIds[fetchedStarData.givingUserIds.findIndex(item => item === interaction.user.id)];
+            fetchedStarData.starCount -= 1;
 
             await fetchedStarData.save()
             .then(async (newDocument) => {

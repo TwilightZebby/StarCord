@@ -203,7 +203,7 @@ async function GiveStar(interaction, TargetUser)
     if ( fetchedStarData == null )
     {
         // This is the first ever Star recivingUser has been given
-        await UserStarModel.create({ receivingUserId: TargetUser.id, givingUserIds: [ interaction.user.id ] })
+        await UserStarModel.create({ receivingUserId: TargetUser.id, starCount: 1 })
         .then(async (newDocument) => {
             // ACK to User
             await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) });
@@ -228,16 +228,16 @@ async function GiveStar(interaction, TargetUser)
     else
     {
         // Not the first time recivingUser has got a Star
-        fetchedStarData.givingUserIds.push(interaction.user.id);
+        fetchedStarData.starCount += 1;
 
         // Check for rank-up
-        let hasRankChanged = compareRanks(fetchedStarData.givingUserIds.length - 1, fetchedStarData.givingUserIds.length);
+        let hasRankChanged = compareRanks(fetchedStarData.starCount - 1, fetchedStarData.starCount);
 
         await fetchedStarData.save()
         .then(async (newDocument) => {
             // ACK to User
             if ( hasRankChanged === 'NO_CHANGE' ) { await interaction.reply({ content: localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName) }); }
-            else { await interaction.reply({ content: `${localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName)}\n\n${localize(interaction.guildLocale, 'USER_STAR_RANK_UP', TargetUser.displayName, getRankDisplayName(fetchedStarData.givingUserIds.length, interaction.guildLocale))}` }); }
+            else { await interaction.reply({ content: `${localize(interaction.locale, 'GIVESTAR_COMMAND_SUCCESS', interaction.user.displayName, TargetUser.displayName)}\n\n${localize(interaction.guildLocale, 'USER_STAR_RANK_UP', TargetUser.displayName, getRankDisplayName(fetchedStarData.starCount, interaction.guildLocale))}` }); }
 
             // Create Cooldown
             await TimerModel.create({ receivingUserId: TargetUser.id, givingUserId: interaction.user.id, timerType: "GIVING", timerExpires: calculateStarCooldownEnd() })
@@ -303,7 +303,7 @@ async function RevokeStar(interaction, TargetUser)
     }
 
 
-    if ( fetchedStarData.givingUserIds.length < 1 )
+    if ( fetchedStarData.starCount < 1 )
     {
         // receivingUser has no Stars!
         await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
@@ -312,13 +312,13 @@ async function RevokeStar(interaction, TargetUser)
     else
     {
         // receivingUser does have Stars, check in Array to see if givingUser has a Star to revoke
-        if ( !fetchedStarData.givingUserIds.includes(interaction.user.id) )
+        /* if ( !fetchedStarData.givingUserIds.includes(interaction.user.id) )
         {
             await interaction.reply({ ephemeral: true, content: localize(interaction.locale, 'REVOKESTAR_COMMAND_ERROR_NO_STARS_TO_REVOKE', TargetUser.displayName) });
             return;
-        }
+        } */
 
-        delete fetchedStarData.givingUserIds[fetchedStarData.givingUserIds.findIndex(item => item === interaction.user.id)];
+        fetchedStarData.starCount -= 1;
 
         await fetchedStarData.save()
         .then(async (newDocument) => {

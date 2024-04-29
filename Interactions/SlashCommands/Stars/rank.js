@@ -143,20 +143,20 @@ module.exports = {
         else
         {
             let rankEmbed = new EmbedBuilder().setTitle(localize(interaction.locale, 'RANK_COMMAND_EMBED_TITLE', interaction.user.displayName));
-            if ( fetchedStarData.givingUserIds.length < StarRankings.BRONZE )
+            if ( fetchedStarData.starCount < StarRankings.BRONZE )
             {
                 rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_UNRANKED'))
-                .addFields({ name: localize(interaction.locale, 'RANK_COMMAND_EMBED_PROGRESS_FIELD_TITLE', localize(interaction.locale, 'STAR_RANK_BRONZE')), value: `${Math.floor(fetchedStarData.givingUserIds.length / StarRankings.BRONZE)}%` });
+                .addFields({ name: localize(interaction.locale, 'RANK_COMMAND_EMBED_PROGRESS_FIELD_TITLE', localize(interaction.locale, 'STAR_RANK_BRONZE')), value: `${Math.floor(fetchedStarData.starCount / StarRankings.BRONZE)}%` });
             }
-            else if ( fetchedStarData.givingUserIds.length > StarRankings.STARDUST )
+            else if ( fetchedStarData.starCount > StarRankings.STARDUST )
             {
                 rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_MAX_RANK', localize(interaction.locale, 'STAR_RANK_STARDUST'))).setColor('#8B56F2');
             }
             else
             {
-                rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_RANK_INFO', calculateRank(fetchedStarData.givingUserIds.length, interaction.locale)))
-                .setColor(getRankColor(fetchedStarData.givingUserIds.length))
-                .addFields({ name: localize(interaction.locale, 'RANK_COMMAND_EMBED_PROGRESS_FIELD_TITLE', calculateRank(fetchedStarData.givingUserIds.length, interaction.locale)), value: `${Math.floor(fetchedStarData.givingUserIds.length / getNextRankRequirement(fetchedStarData.givingUserIds.length))}%` });
+                rankEmbed.setDescription(localize(interaction.locale, 'RANK_COMMAND_EMBED_DESCRIPTION_RANK_INFO', calculateRank(fetchedStarData.starCount, interaction.locale)))
+                .setColor(getRankColor(fetchedStarData.starCount))
+                .addFields({ name: localize(interaction.locale, 'RANK_COMMAND_EMBED_PROGRESS_FIELD_TITLE', calculateRank(fetchedStarData.starCount, interaction.locale)), value: `${Math.floor(fetchedStarData.starCount / getNextRankRequirement(fetchedStarData.starCount))}%` });
             }
 
             await interaction.reply({ ephemeral: true, embeds: [rankEmbed] });
