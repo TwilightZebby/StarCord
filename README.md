@@ -8,8 +8,8 @@ Give ⭐ Stars to Users all across Discord - in Servers, in Group DMs, and regul
 
 Plus, you can earn Rankings depending on how many Stars you have recieved from other Users - from Bronze to Silver to Gold, and so on.
 
-> [!NOTE]
-> Want to add UserStars as a User App to begin using it? [Here's its Invite Link](https://discord.com/oauth2/authorize?client_id=1220284125269856326&scope=applications.commands&integration_type=1)!
+> [!IMPORTANT]
+> UserStars has been shut down, and is no longer able to be added to your account(s) as a User App. This is because it was mainly made to experiment with Discord's User Apps feature, and because it wasn't seeing much use, even from its developer!
 
 ---
 
@@ -32,7 +32,7 @@ You can view your own Star Rank by using the `/rank` Slash Command anywhere on D
 ### Other UserStars Commands
 UserStars also has two more Slash Commands:
 - `/invite` for seeing the Invite Link to add UserStars as a User App
-- `/support` for seeing the [Server Invite](https://discord.gg/4bFgUyWUMY) for UserStars' Support Server - "Twilight Domain"
+- `/support` for seeing the Server Invite for UserStars' Support Server - "Twilight Domain"
 
 ---
 
